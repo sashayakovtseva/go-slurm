@@ -15,14 +15,16 @@ func main() {
 	log.Printf("Node array: %+v", nodeInfo.NodeArray)
 	slurm.FreeNodeInfoMsg(nodeInfo)
 
-	jobId, err := strconv.ParseUint(os.Args[1], 10, 32)
-	if err != nil {
-		log.Fatal(err)
+	if len(os.Args) > 1 {
+		jobId, err := strconv.ParseUint(os.Args[1], 10, 32)
+		if err != nil {
+			log.Fatal(err)
+		}
+		jobInfo := slurm.LoadJob(uint32(jobId), slurm.SHOW_ALL)
+		jobInfo.Deref()
+		log.Printf("Info for job %d", jobId)
+		log.Printf("%+v", jobInfo)
+		log.Printf("%+v", jobInfo.Ref())
+		slurm.FreeJobInfoMsg(jobInfo)
 	}
-	jobInfo := slurm.LoadJob(uint32(jobId), slurm.SHOW_ALL)
-	jobInfo.Deref()
-	log.Printf("Info for job %d", jobId)
-	log.Printf("%+v", jobInfo)
-	log.Printf("%+v", jobInfo.Ref())
-	slurm.FreeJobInfoMsg(jobInfo)
 }
