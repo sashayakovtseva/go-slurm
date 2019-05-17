@@ -7,9 +7,7 @@ GENERATOR:
     - slurm_errno.h
     - slurm_helpers.h
   FlagGroups:
-    - {name: LDFLAGS, flags: [-lslurm -L/usr/lib/x86_64-linux-gnu/slurm/]}
-    - {name: CFLAGS, flags: [-I.]}
-
+    - {name: LDFLAGS, flags: [-lslurm]}
 
 PARSER:
   SourcesPaths:

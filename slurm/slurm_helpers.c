@@ -3,7 +3,7 @@
 
 submit_response_msg_t* wrap_slurm_submit_batch_job(job_desc_msg_t *job_desc_msg) {
     submit_response_msg_t* response;
-    if (slurm_submit_batch_job(job_desc_msg, &response) != 0) {
+    if (slurm_submit_batch_job(job_desc_msg, &response) != SLURM_SUCCESS) {
         slurm_free_submit_response_response_msg(response);
         response = NULL;
     }
@@ -12,7 +12,7 @@ submit_response_msg_t* wrap_slurm_submit_batch_job(job_desc_msg_t *job_desc_msg)
 
 job_info_msg_t* wrap_slurm_load_job(uint32_t job_id, uint16_t show_flags) {
     job_info_msg_t* response;
-    if (slurm_load_job(&response, job_id, show_flags) != 0) {
+    if (slurm_load_job(&response, job_id, show_flags) != SLURM_SUCCESS) {
         slurm_free_job_info_msg(response);
         response = NULL;
     }
@@ -21,7 +21,7 @@ job_info_msg_t* wrap_slurm_load_job(uint32_t job_id, uint16_t show_flags) {
 
 node_info_msg_t* wrap_slurm_load_node(time_t update_time, uint16_t show_flags) {
 	node_info_msg_t* response;
-    if (slurm_load_node(update_time, &response, show_flags) != 0) {
+    if (slurm_load_node(update_time, &response, show_flags) != SLURM_SUCCESS) {
         slurm_free_node_info_msg(response);
         response = NULL;
     }
