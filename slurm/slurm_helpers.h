@@ -1,5 +1,5 @@
 #pragma once
-#include <slurm/slurm.h>
+#include "slurm.h"
 #include <stdint.h>
 
 // Slurm API docs don't say nothing about the state of output pointer arguments.
@@ -28,3 +28,13 @@ extern submit_response_msg_t* wrap_slurm_submit_batch_job(job_desc_msg_t *job_de
 // NOTE: free the response using slurm_free_job_info_msg
 //       (freeing a returned NULL is not needed but allowed)
 extern job_info_msg_t* wrap_slurm_load_job(uint32_t job_id, uint16_t show_flags);
+
+// wrap_slurm_load_job - issue RPC to get job information for one job ID
+// slurm_load_node - issue RPC to get slurm all node configuration information
+// 	if changed since update_time
+// IN update_time - time of current configuration data
+// OUT resp - place to store a node configuration pointer
+// IN show_flags - node filtering options (e.g. SHOW_FEDERATION)
+// RET 0 or a slurm error code
+// NOTE: free the response using slurm_free_node_info_msg
+extern node_info_msg_t* wrap_slurm_load_node(time_t update_time, uint16_t show_flags);

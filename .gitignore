@@ -14,3 +14,7 @@
 .glide/
 
 \.idea/
+
+slurm/*.go
+
+slurm/cgo_helpers*

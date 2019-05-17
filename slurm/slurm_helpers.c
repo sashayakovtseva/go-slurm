@@ -19,3 +19,11 @@ job_info_msg_t* wrap_slurm_load_job(uint32_t job_id, uint16_t show_flags) {
     return response;
 }
 
+node_info_msg_t* wrap_slurm_load_node(time_t update_time, uint16_t show_flags) {
+	node_info_msg_t* response;
+    if (slurm_load_node(update_time, &response, show_flags) != 0) {
+        slurm_free_node_info_msg(response);
+        response = NULL;
+    }
+    return response;
+}
